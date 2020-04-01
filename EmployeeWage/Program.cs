@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 class Employee
 {
-    //constants
+    // Constants
     int WAGE_PER_HOUR = 20;
     int FULLDAY_HOUR = 8;
     int PARTTIME_HOUR = 4;
     int ABSENTDAY_HOUR = 0;
     int MONTHLY_DAY = 20;
 
-    //Variables
+    // Variables
     int totalWagePerDay = 0;
     int dailyWageFulltime = 0;
     int dailyWageParttime = 0;
@@ -19,8 +19,10 @@ class Employee
     int workingHours = 0;
     int workHours = 0;
 
+    // Creating a dictionary using Dictionary<TKey,TValue> class
     Dictionary<int, int> EmpDailyWageKV = new Dictionary<int, int>();
 
+    // Calulating workhours in function
     public int totalWorkingHours(int hours)
     {
         workHours += hours;
@@ -29,6 +31,7 @@ class Employee
 
     public void dailyWageDict(int days,int dailyWage)
     {
+        // Adding key/value pairs in the Dictionary Using Add() method
         EmpDailyWageKV.Add(days, dailyWage);
     }
 
@@ -63,6 +66,8 @@ class Employee
             day += 1;
         }
         Console.WriteLine("total Working Hours: " + workingHours);
+
+        // Display keys and Vaalues from dictionary to console screen.
         foreach(KeyValuePair<int,int> wage in EmpDailyWageKV)
         {
             Console.WriteLine("Day:{0}  wage: {1}", wage.Key, wage.Value);
@@ -71,9 +76,9 @@ class Employee
        }
 }
 
-
 class Program
 {
+    //Main method
     static void Main(string[] args)
     {
         int monthlyWage;
