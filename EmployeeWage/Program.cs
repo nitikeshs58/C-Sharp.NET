@@ -12,6 +12,7 @@ class Employee
     //Variables
     int totalWagePerDay = 0;
     int day = 0;
+    int workingHours = 0;
 
     public int attendanceCheck()
     {
@@ -19,21 +20,27 @@ class Employee
         {
             day += 1;
             Random random = new Random();
-            int attendanceRandom = random.Next(3);
-            switch (attendanceRandom)
+            if (workingHours < 100)
             {
-                case 1:
-                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * FULLDAY_HOUR;
-                    break;
-                case 2:
-                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * PARTTIME_HOUR;
-                    break;
-                case 0:
-                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * ABSENTDAY_HOUR;
-                    break;
-                default:
-                    Console.WriteLine("Invalid Entry.");
-                    break;
+                int attendanceRandom = random.Next(3);
+                switch (attendanceRandom)
+                {
+                    case 1:
+                        totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * FULLDAY_HOUR;
+                        workingHours = workingHours + FULLDAY_HOUR;
+                        break;
+                    case 2:
+                        totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * PARTTIME_HOUR;
+                        workingHours = workingHours + PARTTIME_HOUR;
+                        break;
+                    case 0:
+                        totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * ABSENTDAY_HOUR;
+                        workingHours = workingHours + ABSENTDAY_HOUR;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Entry.");
+                        break;
+                }
             }
         }
         return totalWagePerDay;
