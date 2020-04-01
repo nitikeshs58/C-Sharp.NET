@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 class Employee
 {
@@ -11,9 +12,14 @@ class Employee
 
     //Variables
     int totalWagePerDay = 0;
-    int day = 0;
+    int dailyWageFulltime = 0;
+    int dailyWageParttime = 0;
+    int dailyWageAbsent = 0;
+    int day = 1;
     int workingHours = 0;
     int workHours = 0;
+
+    Dictionary<int, int> EmpDailyWageKV = new Dictionary<int, int>();
 
     public int totalWorkingHours(int hours)
     {
@@ -21,31 +27,46 @@ class Employee
         return workHours;
     }
 
+    public void dailyWageDict(int days,int dailyWage)
+    {
+        EmpDailyWageKV.Add(days, dailyWage);
+    }
+
     public int attendanceCheck()
     {
-        while (day < MONTHLY_DAY && workingHours<=100)
+        while (day <= MONTHLY_DAY && workingHours<=100)
         {
-            day += 1;
             Random random = new Random();
             int attendanceRandom = random.Next(3);
 
             switch (attendanceRandom)
             {
                 case 1:
-                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * FULLDAY_HOUR;
+                    dailyWageFulltime = WAGE_PER_HOUR * FULLDAY_HOUR;
+                    totalWagePerDay = totalWagePerDay + dailyWageFulltime;
+                    dailyWageDict(day, dailyWageFulltime);
                     workingHours = totalWorkingHours(FULLDAY_HOUR);
                     break;
                 case 2:
-                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * PARTTIME_HOUR;
+                    dailyWageParttime = WAGE_PER_HOUR * PARTTIME_HOUR;
+                    totalWagePerDay = totalWagePerDay + dailyWageParttime;
+                    dailyWageDict(day, dailyWageParttime);
                     workingHours = totalWorkingHours(PARTTIME_HOUR);
                     break;
                 case 0:
-                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * ABSENTDAY_HOUR;
+                    dailyWageAbsent=WAGE_PER_HOUR * ABSENTDAY_HOUR;
+                    totalWagePerDay = totalWagePerDay + dailyWageAbsent;
+                    dailyWageDict(day, dailyWageAbsent);
                     workingHours = totalWorkingHours(ABSENTDAY_HOUR);
                     break;
             }
+            day += 1;
         }
         Console.WriteLine("total Working Hours: " + workingHours);
+        foreach(KeyValuePair<int,int> wage in EmpDailyWageKV)
+        {
+            Console.WriteLine("Day:{0}  wage: {1}", wage.Key, wage.Value);
+        }
         return totalWagePerDay;
        }
 }
