@@ -1,12 +1,30 @@
 ﻿using System;
 
-namespace EmployeeWage
+class Employee
 {
-    class Program
+    public string attendanceCheck()
     {
-        static void Main(string[] args)
+        Random random = new Random();
+        int attendanceRandom = random.Next(2);
+        if(attendanceRandom==1)
         {
-            Console.WriteLine("Welcome to Employee Wage Program!");
+            return "Emp Present";
+        }
+        else
+        {
+            return "Emp Absent";
         }
     }
 }
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        String checkAttendance;
+        Console.WriteLine("Welcome to Employee Wage Program!");
+        Employee e1 = new Employee();
+        checkAttendance=e1.attendanceCheck();
+        Console.WriteLine(checkAttendance);
+        }
+    }
