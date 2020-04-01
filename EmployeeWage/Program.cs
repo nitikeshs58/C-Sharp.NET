@@ -13,38 +13,41 @@ class Employee
     int totalWagePerDay = 0;
     int day = 0;
     int workingHours = 0;
+    int workHours = 0;
+
+    public int totalWorkingHours(int hours)
+    {
+        workHours += hours;
+        return workHours;
+    }
 
     public int attendanceCheck()
     {
-        while (day < MONTHLY_DAY)
+        while (day < MONTHLY_DAY && workingHours<=100)
         {
             day += 1;
             Random random = new Random();
-            if (workingHours < 100)
+            int attendanceRandom = random.Next(3);
+
+            switch (attendanceRandom)
             {
-                int attendanceRandom = random.Next(3);
-                switch (attendanceRandom)
-                {
-                    case 1:
-                        totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * FULLDAY_HOUR;
-                        workingHours = workingHours + FULLDAY_HOUR;
-                        break;
-                    case 2:
-                        totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * PARTTIME_HOUR;
-                        workingHours = workingHours + PARTTIME_HOUR;
-                        break;
-                    case 0:
-                        totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * ABSENTDAY_HOUR;
-                        workingHours = workingHours + ABSENTDAY_HOUR;
-                        break;
-                    default:
-                        Console.WriteLine("Invalid Entry.");
-                        break;
-                }
+                case 1:
+                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * FULLDAY_HOUR;
+                    workingHours = totalWorkingHours(FULLDAY_HOUR);
+                    break;
+                case 2:
+                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * PARTTIME_HOUR;
+                    workingHours = totalWorkingHours(PARTTIME_HOUR);
+                    break;
+                case 0:
+                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * ABSENTDAY_HOUR;
+                    workingHours = totalWorkingHours(ABSENTDAY_HOUR);
+                    break;
             }
         }
+        Console.WriteLine("total Working Hours: " + workingHours);
         return totalWagePerDay;
-    }
+       }
 }
 
 
