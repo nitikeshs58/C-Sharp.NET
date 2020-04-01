@@ -7,42 +7,48 @@ class Employee
     int FULLDAY_HOUR = 8;
     int PARTTIME_HOUR = 4;
     int ABSENTDAY_HOUR = 0;
+    int MONTHLY_DAY = 20;
 
     //Variables
-    int wagePerDay = 0;
+    int totalWagePerDay = 0;
+    int day = 0;
 
-    public void attendanceCheck()
+    public int attendanceCheck()
     {
-        Random random = new Random();
-        int attendanceRandom = random.Next(3);
-
-        switch (attendanceRandom)
+        while (day < MONTHLY_DAY)
         {
-            case 1:
-                wagePerDay = WAGE_PER_HOUR * FULLDAY_HOUR;
-                Console.WriteLine(wagePerDay);
-                break;
-            case 2:
-                wagePerDay = WAGE_PER_HOUR * PARTTIME_HOUR;
-                Console.WriteLine(wagePerDay);
-                break;
-            case 0:
-                wagePerDay = WAGE_PER_HOUR * ABSENTDAY_HOUR;
-                Console.WriteLine(wagePerDay);
-                break;
-            default:
-                Console.WriteLine("Invalid Entry.");
-                break;
+            day += 1;
+            Random random = new Random();
+            int attendanceRandom = random.Next(3);
+            switch (attendanceRandom)
+            {
+                case 1:
+                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * FULLDAY_HOUR;
+                    break;
+                case 2:
+                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * PARTTIME_HOUR;
+                    break;
+                case 0:
+                    totalWagePerDay = totalWagePerDay + WAGE_PER_HOUR * ABSENTDAY_HOUR;
+                    break;
+                default:
+                    Console.WriteLine("Invalid Entry.");
+                    break;
+            }
         }
+        return totalWagePerDay;
     }
 }
+
 
 class Program
 {
     static void Main(string[] args)
     {
+        int monthlyWage;
         Console.WriteLine("Welcome to Employee Wage Program!");
         Employee e1 = new Employee();
-        e1.attendanceCheck();
+        monthlyWage=e1.attendanceCheck();
+        Console.WriteLine("Monthly wage of emp: " + monthlyWage);
     }
 }
