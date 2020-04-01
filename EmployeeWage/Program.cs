@@ -11,25 +11,28 @@ class Employee
     //Variables
     int wagePerDay = 0;
 
-    public int attendanceCheck()
+    public void attendanceCheck()
     {
         Random random = new Random();
         int attendanceRandom = random.Next(3);
 
-        if (attendanceRandom==1)
+        switch (attendanceRandom)
         {
-            wagePerDay = WAGE_PER_HOUR * FULLDAY_HOUR;
-            return wagePerDay;
-        }
-        else if(attendanceRandom==0)
-        {
-            wagePerDay = WAGE_PER_HOUR * PARTTIME_HOUR;
-            return wagePerDay;
-        }
-        else
-        {
-            wagePerDay = WAGE_PER_HOUR * ABSENTDAY_HOUR;
-            return wagePerDay;
+            case 1:
+                wagePerDay = WAGE_PER_HOUR * FULLDAY_HOUR;
+                Console.WriteLine(wagePerDay);
+                break;
+            case 2:
+                wagePerDay = WAGE_PER_HOUR * PARTTIME_HOUR;
+                Console.WriteLine(wagePerDay);
+                break;
+            case 0:
+                wagePerDay = WAGE_PER_HOUR * ABSENTDAY_HOUR;
+                Console.WriteLine(wagePerDay);
+                break;
+            default:
+                Console.WriteLine("Invalid Entry.");
+                break;
         }
     }
 }
@@ -38,10 +41,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        int checkAttendance;
         Console.WriteLine("Welcome to Employee Wage Program!");
         Employee e1 = new Employee();
-        checkAttendance=e1.attendanceCheck();
-        Console.WriteLine(checkAttendance);
+        e1.attendanceCheck();
     }
 }
